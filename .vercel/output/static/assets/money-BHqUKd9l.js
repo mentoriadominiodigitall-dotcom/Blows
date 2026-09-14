@@ -1,0 +1,1 @@
+import{n as e}from"./utils-BR7aaAm9.js";function t(t){return new Intl.NumberFormat(`pt-BR`,{style:`currency`,currency:`BRL`}).format(e(t))}function n(t){let n=e(t);return new Intl.NumberFormat(`pt-BR`,{style:`currency`,currency:`BRL`,maximumFractionDigits:0}).format(n)}export{n,t};

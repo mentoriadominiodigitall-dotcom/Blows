@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "REVIVA",
+      "hasCanvas": false,
+      "bodyTextLen": 600,
+      "bodyTextHash": "b9ad14959b7406d91c497f967cbd79be7c552ff546e5b3ba53a39211a0e7cb7f",
+      "bodyTextPrefix": "REVIVA RECEITA ENCONTRADA Quanto dinheiro sua empresa está deixa",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "REVIVA",
+      "hasCanvas": false,
+      "bodyTextLen": 615,
+      "bodyTextHash": "e2107136e295551691ed8c9ce9db48edd7db47767e62646ab3eceb9193e5429b",
+      "bodyTextPrefix": "REVIVA Entrar Começar RECEITA ENCONTRADA Quanto dinheiro sua emp",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

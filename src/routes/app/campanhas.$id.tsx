@@ -24,7 +24,7 @@ function CampaignDetail() {
 
   if (q.isLoading) return <Skeleton className="h-48" />;
   if (!q.data) return <p className="text-sm text-rust">Campanha não encontrada nesta empresa.</p>;
-  const c = q.data.campaign as Record<string, unknown>;
+  const c = q.data.campaign;
 
   return (
     <div className="space-y-4">

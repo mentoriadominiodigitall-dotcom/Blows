@@ -42,8 +42,18 @@ export const getCampaign = createServerFn({ method: "POST" })
     try {
       const { sql, tenant } = await requireTenant(context.userId);
       assertPermission(tenant, "campaigns.read");
-      const [campaign] = await sql<Record<string, unknown>>`
-        select * from campaigns where id = ${data.id} and company_id = ${tenant.companyId}
+      const [campaign] = await sql<{
+        id: string;
+        name: string;
+        segment_key: string;
+        channel: string;
+        message: string;
+        status: string;
+        recovered_amount: string;
+        created_at: string;
+      }>`
+        select id, name, segment_key, channel, message, status, recovered_amount, created_at
+        from campaigns where id = ${data.id} and company_id = ${tenant.companyId}
       `;
       if (!campaign) throw new AppError("NOT_FOUND", "Campanha não encontrada.", 404);
       const recipients = await sql<{
@@ -275,10 +285,14 @@ export const getBilling = createServerFn({ method: "GET" })
         name: string;
         price_cents: number;
         description: string | null;
-        features: unknown;
+        features: string[];
       }>`
-        select slug, name, price_cents, description, features from plans order by sort_order
+        select slug, name, price_cents, description, coalesce(features, '[]'::jsonb) as features from plans order by sort_order
       `;
+      const serializablePlans = plans.map((p) => ({
+        ...p,
+        features: Array.isArray(p.features) ? p.features.map((f) => String(f)) : [],
+      }));
       const [sub] = await sql<{
         plan_slug: string;
         status: string;
@@ -288,7 +302,7 @@ export const getBilling = createServerFn({ method: "GET" })
         select plan_slug, status, trial_ends_at, current_period_end
         from company_subscriptions where company_id = ${tenant.companyId}
       `;
-      return { plans, subscription: sub ?? null, stripe: stripeConfigured() };
+      return { plans: serializablePlans, subscription: sub ?? null, stripe: stripeConfigured() };
     } catch (error) {
       publicError(error);
     }

@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-FXir3jLF.js";import{t}from"./money-BHqUKd9l.js";var n=e();function r({value:e,className:r}){return(0,n.jsx)(`span`,{className:`tabular-nums ${r??``}`,children:t(e)})}export{r as t};

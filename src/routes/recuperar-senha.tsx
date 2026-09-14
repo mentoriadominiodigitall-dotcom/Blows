@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { authClient } from "@/lib/auth/client";
 import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
 
@@ -14,16 +13,27 @@ function Recover() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    const { error } = await authClient.forgetPassword({
-      email,
-      redirectTo: "/login",
-    });
-    setBusy(false);
-    if (error) {
-      setMessage("Não foi possível enviar o e-mail de recuperação neste ambiente. A entrega de e-mail exige configuração do provedor.");
-      return;
+    setMessage(null);
+    try {
+      const res = await fetch("/api/auth/request-password-reset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, redirectTo: "/login" }),
+      });
+      if (!res.ok) {
+        setMessage(
+          "Não foi possível enviar o e-mail de recuperação. A entrega exige um provedor de e-mail configurado no servidor de autenticação.",
+        );
+        return;
+      }
+      setMessage("Se este e-mail existir e o provedor estiver configurado, as instruções serão enviadas.");
+    } catch {
+      setMessage(
+        "Não foi possível enviar o e-mail de recuperação. A entrega exige um provedor de e-mail configurado.",
+      );
+    } finally {
+      setBusy(false);
     }
-    setMessage("Se este e-mail existir, o provedor de autenticação enviará as instruções.");
   }
 
   return (

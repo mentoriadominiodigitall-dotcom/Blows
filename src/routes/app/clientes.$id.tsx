@@ -28,7 +28,7 @@ function CustomerPage() {
 
   if (q.isLoading) return <Skeleton className="h-64" />;
   if (q.error || !q.data) return <p className="text-sm text-rust">Cliente não encontrado nesta empresa.</p>;
-  const c = q.data.customer as Record<string, unknown>;
+  const c = q.data.customer;
 
   return (
     <div className="grid gap-4 lg:grid-cols-3">

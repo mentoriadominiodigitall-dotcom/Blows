@@ -57,8 +57,25 @@ export const getCustomer = createServerFn({ method: "POST" })
     try {
       const { sql, tenant } = await requireTenant(context.userId);
       assertPermission(tenant, "customers.read");
-      const [customer] = await sql<Record<string, unknown>>`
-        select * from customers
+      const [customer] = await sql<{
+        id: string;
+        name: string;
+        email: string | null;
+        phone: string | null;
+        company_name: string | null;
+        source: string | null;
+        status: string;
+        classification: string;
+        consent_whatsapp: boolean;
+        last_purchase_at: string | null;
+        total_spent: string;
+        avg_ticket: string;
+        purchase_count: number;
+        credit_limit: string;
+      }>`
+        select id, name, email, phone, company_name, source, status, classification,
+          consent_whatsapp, last_purchase_at, total_spent, avg_ticket, purchase_count, credit_limit
+        from customers
         where id = ${data.id} and company_id = ${tenant.companyId} and deleted_at is null
       `;
       if (!customer) throw new AppError("NOT_FOUND", "Cliente não encontrado.", 404);

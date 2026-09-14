@@ -34,7 +34,7 @@ function BillingPage() {
       ) : null}
       <div className="grid gap-3 md:grid-cols-2">
         {q.data.plans.map((p) => {
-          const features = Array.isArray(p.features) ? (p.features as string[]) : [];
+          const features = p.features;
           return (
             <Card key={p.slug}>
               <div className="flex items-center justify-between">

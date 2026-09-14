@@ -1,0 +1,1 @@
+import{t as e}from"./useQuery-9XXXnza2.js";import{r as t}from"./session-BxqconEH.js";function n(){return e({queryKey:[`session-context`],queryFn:()=>t(),staleTime:2e4})}export{n as t};
